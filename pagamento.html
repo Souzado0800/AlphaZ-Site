@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento via Pix - DayZ Black Market PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #e67e22;
+            --discord: #5865F2;
+        }
+        body {
+            background: #0a0a0a url('https://images.unsplash.com/photo-1605106702734-205df224ecce') no-repeat fixed;
+            background-size: cover;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(20, 20, 25, 0.9);
+            border-radius: 10px;
+            border: 1px solid rgba(230, 126, 34, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #e67e22;
+        }
+        .pix-code {
+            background: #1a1a1a;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        .pix-qr {
+            border: 4px solid #e67e22;
+        }
+        .btn-primary {
+            background-color: #e67e22;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #cf6a0e;
+        }
+        .btn-secondary {
+            background-color: #333;
+        }
+        .btn-secondary:hover {
+            background-color: #444;
+        }
+        .order-summary {
+            background: rgba(30, 30, 35, 0.7);
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+        }
+        .order-total {
+            border-top: 1px solid #333;
+            font-weight: bold;
+        }
+        .step-active {
+            background-color: #e67e22;
+        }
+        .step-completed {
+            background-color: #2ecc71;
+        }
+        .discord-bg {
+            background-color: var(--discord);
+        }
+        .discord-bg:hover {
+            background-color: #4752c4;
+        }
+        #payment-status {
+            transition: all 0.5s ease;
+        }
+        .history-item {
+            background: rgba(40, 40, 45, 0.7);
+        }
+    </style>
+</head>
+<body class="py-8 px-4">
+    <!-- Cabeçalho -->
+    <header class="bg-black bg-opacity-70 py-4 px-6 fixed top-0 w-full z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-skull text-2xl mr-3 text-orange-500"></i>
+                <h1 class="font-['Orbitron'] text-xl">DAYZ BLACK MARKET PRO</h1>
+            </div>
+            <nav>
+                <button id="history-btn" class="mr-4 hover:text-orange-400">
+                    <i class="fas fa-history mr-1"></i> Histórico
+                </button>
+                <a href="https://discord.gg/nAxMvTefZd" target="_blank" class="discord-bg px-4 py-2 rounded-md hover:bg-blue-700">
+                    <i class="fab fa-discord mr-2"></i>Suporte
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="max-w-4xl mx-auto mt-20">
+        <div class="container p-8">
+            <!-- Passos do Processo -->
+            <div class="flex justify-between mb-8 relative">
+                <div class="step text-center flex-1 relative">
+                    <div class="step-completed rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="text-sm">Carrinho</div>
+                </div>
+                <div class="step text-center flex-1 relative">
+                    <div class="step-active rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2">2</div>
+                    <div class="text-sm font-medium">Pagamento</div>
+                </div>
+                <div class="step text-center flex-1 relative">
+                    <div class="bg-gray-700 rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2">3</div>
+                    <div class="text-sm text-gray-400">Confirmação</div>
+                </div>
+                <div class="absolute top-4 left-1/4 right-1/4 h-1 bg-gray-700 -z-10"></div>
+            </div>
+
+            <h1 class="text-2xl text-center mb-6">Pagamento via Pix</h1>
+            
+            <!-- Grid de Conteúdo -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Seção do QR Code -->
+                <div>
+                    <div class="text-center mb-6">
+                        <img class="pix-qr rounded-lg mx-auto w-64 h-64" src="QrCode%20pix.jpg" alt="QR Code Pix">
+                        <p class="mt-4 text-center">Escaneie o QR Code acima ou copie o código Pix abaixo para finalizar seu pagamento.</p>
+                    </div>
+                    
+                    <div class="pix-code p-4 rounded-lg mb-4" id="pix-code">
+                        00020126680014br.gov.bcb.pix013677207e53-3570-4a44-95de-345ff9ca036b0206AlphaZ5204000053039865802BR5921Matheus Augusto Souza6008Brasilia62080504mpda63046F29
+                    </div>
+                    
+                    <button class="btn-primary w-full py-3 rounded-md mb-4" onclick="copyPix()">
+                        <i class="fas fa-copy mr-2"></i> Copiar Código Pix
+                    </button>
+                    
+                    <div class="bg-gray-900 p-4 rounded-lg text-center">
+                        <p class="mb-2">Dúvidas ou problemas?</p>
+                        <a href="https://discord.gg/nAxMvTefZd" target="_blank" class="discord-bg inline-block px-4 py-2 rounded-md hover:bg-blue-700">
+                            <i class="fab fa-discord mr-2"></i>Entre no nosso Discord
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Seção do Pedido e Confirmação -->
+                <div>
+                    <div class="order-summary p-6 rounded-lg mb-6">
+                        <h3 class="text-lg font-bold mb-4">RESUMO DO PEDIDO</h3>
+                        <div id="order-items" class="mb-4">
+                            <!-- Itens serão inseridos aqui via JS -->
+                        </div>
+                        <div class="order-total pt-3">
+                            <span>TOTAL:</span>
+                            <span id="order-total">R$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-6 rounded-lg">
+                        <h3 class="text-lg font-bold mb-4 text-orange-400">CONFIRMAÇÃO DE PAGAMENTO</h3>
+                        
+                        <div class="mb-4">
+                            <label class="block mb-2 text-sm">Enviar comprovante:</label>
+                            <input type="file" id="payment-proof" class="hidden">
+                            <button onclick="document.getElementById('payment-proof').click()" 
+                                class="bg-gray-700 hover:bg-gray-600 w-full py-2 rounded-md mb-2">
+                                <i class="fas fa-upload mr-2"></i>Selecionar Arquivo
+                            </button>
+                            <p class="text-xs text-gray-400">Formatos: JPG, PNG ou PDF (max. 5MB)</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="block mb-2 text-sm">Seu Discord (opcional):</label>
+                            <input type="text" id="discord-user" placeholder="usuário#1234" 
+                                class="w-full bg-gray-800 border border-gray-700 rounded-md px-3 py-2">
+                            <p class="text-xs text-gray-400 mt-1">Nosso suporte entrará em contato por Discord se necessário</p>
+                        </div>
+                        
+                        <button id="confirm-payment" class="btn-primary w-full py-3 rounded-md font-bold">
+                            <i class="fas fa-check-circle mr-2"></i>CONFIRMAR PAGAMENTO
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-secondary w-full max-w-xs mx-auto mt-6 py-3 rounded-md" 
+                    onclick="window.location.href='AlphaZsite.html'">
+                <i class="fas fa-arrow-left mr-2"></i> Voltar para a Loja
+            </button>
+        </div>
+        
+        <!-- Status do Pagamento (inicialmente oculto) -->
+        <div id="payment-status" class="container hidden p-8 mt-6 text-center">
+            <i class="fas fa-spinner fa-spin text-4xl text-orange-500 mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">PROCESSANDO PAGAMENTO</h3>
+            <p class="mb-4">Estamos verificando seu comprovante. Você receberá uma notificação em breve.</p>
+            <div class="bg-gray-900 p-4 rounded-lg inline-block">
+                <p class="text-sm">Entre no nosso Discord para suporte rápido:</p>
+                <a href="https://discord.gg/nAxMvTefZd" target="_blank" class="discord-bg inline-block px-4 py-2 rounded-md mt-2 hover:bg-blue-700">
+                    <i class="fab fa-discord mr-2"></i>DAYZ BLACK MARKET
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Histórico -->
+    <div id="history-modal" class="fixed inset-0 bg-black bg-opacity-80 hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-gray-900 rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold">HISTÓRICO DE PEDIDOS</h3>
+                    <button onclick="closeHistoryModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+                </div>
+                <div id="orders-list">
+                    <!-- Pedidos serão carregados aqui -->
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-box-open text-4xl mb-2"></i>
+                        <p>Nenhum pedido encontrado</p>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <p class="text-sm mb-2">Precisa de ajuda com algum pedido?</p>
+                    <a href="https://discord.gg/nAxMvTefZd" target="_blank" class="discord-bg inline-block px-4 py-2 rounded-md hover:bg-blue-700">
+                        <i class="fab fa-discord mr-2"></i>Contate nosso suporte
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Armazenamento de pedidos
+        let orders = JSON.parse(localStorage.getItem('dayz_orders')) || [];
+        
+        // Obter parâmetros da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const total = urlParams.get('total');
+        const itemsJson = urlParams.get('items');
+        
+        // Exibir informações do pedido
+        document.addEventListener('DOMContentLoaded', function() {
+            // Formatar total
+            const formattedTotal = parseFloat(total).toFixed(2).replace('.', ',');
+            document.getElementById('order-total').textContent = `R$ ${formattedTotal}`;
+            
+            if (itemsJson) {
+                const items = JSON.parse(decodeURIComponent(itemsJson));
+                const orderItems = document.getElementById('order-items');
+                let itemsHTML = '';
+                
+                items.forEach(item => {
+                    const itemPrice = parseFloat(item.price).toFixed(2).replace('.', ',');
+                    itemsHTML += `
+                        <div class="order-item py-2 border-b border-gray-800">
+                            <span>${item.name}</span>
+                            <span>${item.quantity}x R$ ${itemPrice}</span>
+                        </div>
+                    `;
+                });
+                
+                orderItems.innerHTML = itemsHTML;
+            }
+        });
+
+        // Função para copiar código PIX
+        function copyPix() {
+            const code = document.getElementById("pix-code").innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert("Código Pix copiado para a área de transferência!\nPor favor, envie o comprovante para nosso Discord: https://discord.gg/nAxMvTefZd");
+            });
+        }
+        
+        // Confirmação de pagamento
+        document.getElementById('confirm-payment').addEventListener('click', function() {
+            const proofFile = document.getElementById('payment-proof').files[0];
+            const discordUser = document.getElementById('discord-user').value;
+            
+            if (!proofFile) {
+                alert('Por favor, envie o comprovante de pagamento\nSe tiver problemas, entre em contato: https://discord.gg/nAxMvTefZd');
+                return;
+            }
+            
+            // Criar novo pedido
+            const newOrder = {
+                id: Date.now(),
+                date: new Date().toLocaleString(),
+                items: JSON.parse(decodeURIComponent(itemsJson)),
+                total: total,
+                status: 'processing',
+                discord: discordUser
+            };
+            
+            // Adicionar ao histórico
+            orders.push(newOrder);
+            localStorage.setItem('dayz_orders', JSON.stringify(orders));
+            
+            // Mostrar status de processamento
+            document.querySelector('.container').classList.add('hidden');
+            document.getElementById('payment-status').classList.remove('hidden');
+            
+            // Simular processamento do pagamento
+            setTimeout(() => {
+                // Atualizar status após "processamento"
+                newOrder.status = 'completed';
+                localStorage.setItem('dayz_orders', JSON.stringify(orders));
+                
+                // Mostrar mensagem de conclusão
+                document.getElementById('payment-status').innerHTML = `
+                    <i class="fas fa-check-circle text-4xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">PAGAMENTO CONFIRMADO!</h3>
+                    <p class="mb-4">Seu pedido #${newOrder.id} foi aprovado e seus itens serão entregues em breve.</p>
+                    <div class="bg-gray-900 p-4 rounded-lg inline-block">
+                        <p class="text-sm mb-2">Resumo do pedido:</p>
+                        <p class="text-orange-400">${JSON.parse(decodeURIComponent(itemsJson)).length} itens • R$ ${parseFloat(total).toFixed(2).replace('.', ',')}</p>
+                    </div>
+                    ${discordUser ? `
+                    <div class="mt-4 bg-gray-900 p-3 rounded-lg">
+                        <p class="text-sm">Você receberá atualizações no Discord: <span class="text-blue-400">${discordUser}</span></p>
+                    </div>
+                    ` : ''}
+                    <div class="mt-6">
+                        <p class="text-sm mb-2">Precisa de ajuda?</p>
+                        <a href="https://discord.gg/nAxMvTefZd" target="_blank" class="discord-bg inline-block px-4 py-2 rounded-md hover:bg-blue-700">
+                            <i class="fab fa-discord mr-2"></i>Entre em contato
+                        </a>
+                    </div>
+                    <button onclick="window.location.href='AlphaZsite.html'" 
+                        class="btn-primary mt-6 px-6 py-2 rounded-md">
+                        <i class="fas fa-home mr-2"></i>Voltar à Loja
+                    </button>
+                `;
+            }, 3000);
+        });
+        
+        // Histórico de pedidos
+        function showHistoryModal() {
+            document.getElementById('history-modal').classList.remove('hidden');
+            
+            if (orders.length === 0) return;
+            
+            let historyHTML = '';
+            orders.forEach(order => {
+                historyHTML += `
+                    <div class="history-item rounded-lg p-4 mb-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h4 class="font-bold">Pedido #${order.id}</h4>
+                                <p class="text-sm text-gray-400">${order.date}</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs 
+                                ${order.status === 'completed' ? 'bg-green-900 text-green-400' : 'bg-orange-900 text-orange-400'}">
+                                ${order.status === 'completed' ? 'COMPLETO' : 'EM PROCESSO'}
+                            </span>
+                        </div>
+                        <div class="border-t border-gray-700 pt-3 mt-3">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Itens:</span>
+                                <span>${order.items.reduce((sum, item) => sum + item.quantity, 0)}</span>
+                            </div>
+                            <div class="flex justify-between font-bold">
+                                <span>Total:</span>
+                                <span>R$ ${parseFloat(order.total).toFixed(2).replace('.', ',')}</span>
+                            </div>
+                        </div>
+                        ${order.status !== 'completed' ? `
+                        <div class="mt-3 text-center">
+                            <a href="https://discord.gg/nAxMvTefZd" target="_blank" class="text-xs discord-bg inline-block px-3 py-1 rounded-md hover:bg-blue-700">
+                                <i class="fab fa-discord mr-1"></i>Consultar status
+                            </a>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+            });
+            
+            document.getElementById('orders-list').innerHTML = historyHTML;
+        }
+        
+        function closeHistoryModal() {
+            document.getElementById('history-modal').classList.add('hidden');
+        }
+        
+        // Event listeners
+        document.getElementById('history-btn').addEventListener('click', showHistoryModal);
+    </script>
+</body>
+</html>
