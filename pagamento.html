@@ -276,15 +276,25 @@
             });
         }
         
-        // Confirmação de pagamento
-        document.getElementById('confirm-payment').addEventListener('click', function() {
-            const proofFile = document.getElementById('payment-proof').files[0];
-            const discordUser = document.getElementById('discord-user').value;
-            
-            if (!proofFile) {
-                alert('Por favor, envie o comprovante de pagamento\nSe tiver problemas, entre em contato: https://discord.gg/nAxMvTefZd');
-                return;
-            }
+// Adicione isso na função de confirmação de pagamento:
+document.getElementById('confirm-payment').addEventListener('click', async function() {
+  // ... código existente ...
+
+  // Notificação de confirmação para o Discord
+  try {
+    await fetch('/.netlify/functions/discord-webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user: document.getElementById('discord-user').value || 'Anônimo',
+        items: JSON.parse(decodeURIComponent(itemsJson)),
+        total: parseFloat(total),
+        status: 'confirmed'
+      })
+    });
+  } catch (error) {
+    console.error('Erro ao enviar confirmação:', error);
+  }
             
             // Criar novo pedido
             const newOrder = {

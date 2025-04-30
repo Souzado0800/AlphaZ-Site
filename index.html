@@ -624,21 +624,39 @@
                 cartModal.classList.add('hidden');
             });
             
-            // Checkout button - redirect to PIX payment
-            checkoutBtn.addEventListener('click', function() {
-                let subtotal = 0;
-                let discount = 0;
-                
-                cart.forEach(item => {
-                    const isVehicle = ['4','5','6','7'].includes(item.id);
-                    subtotal += item.price * item.quantity;
-                    if (isVehicle) discount += (item.price * 0.5) * item.quantity;
-                });
-                
-                const total = subtotal - discount;
-                const pixUrl = `pagamento.html?total=${total.toFixed(2)}&items=${encodeURIComponent(JSON.stringify(cart))}`;
-                window.location.href = pixUrl;
-            });
+   // Substitua a função de checkout existente por esta:
+checkoutBtn.addEventListener('click', async function() {
+  let subtotal = 0;
+  let discount = 0;
+  
+  cart.forEach(item => {
+    const isVehicle = ['4','5','6','7'].includes(item.id);
+    subtotal += item.price * item.quantity;
+    if (isVehicle) discount += (item.price * 0.5) * item.quantity;
+  });
+  
+  const total = subtotal - discount;
+
+  // Envia notificação para o Discord
+  try {
+    await fetch('/.netlify/functions/discord-webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user: 'Compra via Site',
+        items: cart,
+        total: total,
+        status: 'pending'
+      })
+    });
+  } catch (error) {
+    console.error('Erro ao enviar para Discord:', error);
+  }
+
+  // Continua com o redirecionamento original
+  const pixUrl = `pagamento.html?total=${total.toFixed(2)}&items=${encodeURIComponent(JSON.stringify(cart))}`;
+  window.location.href = pixUrl;
+});
             
             // Countdown timer
             function updateCountdown() {
