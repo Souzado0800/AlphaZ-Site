@@ -8,7 +8,7 @@ exports.handler = async (event) => {
 
   try {
     const data = JSON.parse(event.body);
-    const WEBHOOK_URL = 'https://discord.com/api/webhooks/1366890541396004904/FF9cc4w2EjQUcL1VkPRviHptp7Z37GSADzjiuE4s5aHInQ7YLWRnCOETf6tF6zmA1DZc'; // ← Substitua pela sua URL
+    const WEBHOOK_URL = 'https://discord.com/api/webhooks/1366890541396004904/FF9cc4w2EjQUcL1VkPRviHptp7Z37GSADzjiuE4s5aHInQ7YLWRnCOETf6tF6zmA1DZc';
 
     // Formata a mensagem para o Discord
     const embed = {
@@ -20,9 +20,7 @@ exports.handler = async (event) => {
         { name: 'Total', value: `R$ ${data.total.toFixed(2)}` },
         { 
           name: 'Itens', 
-          value: data.items.map(i => 
-            `• ${i.name} (x${i.quantity}) - R$ ${i.price.toFixed(2)}`
-          ).join('\n') 
+          value: data.items.map(i => `• ${i.name} (x${i.quantity})`).join('\n') 
         }
       ],
       timestamp: new Date().toISOString()
@@ -38,7 +36,7 @@ exports.handler = async (event) => {
       })
     });
 
-    return { statusCode: 200, body: 'Notificação enviada com sucesso!' };
+    return { statusCode: 200, body: 'Notificação enviada!' };
   } catch (error) {
     return { statusCode: 500, body: 'Erro: ' + error.message };
   }

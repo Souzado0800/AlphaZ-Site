@@ -267,7 +267,7 @@
                 orderItems.innerHTML = itemsHTML;
             }
         });
-
+    
         // Função para copiar código PIX
         function copyPix() {
             const code = document.getElementById("pix-code").innerText;
@@ -276,51 +276,52 @@
             });
         }
         
-// Adicione isso na função de confirmação de pagamento:
-document.getElementById('confirm-payment').addEventListener('click', async function() {
-  // ... código existente ...
-
-  // Notificação de confirmação para o Discord
-  try {
-    await fetch('/.netlify/functions/discord-webhook', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user: document.getElementById('discord-user').value || 'Anônimo',
-        items: JSON.parse(decodeURIComponent(itemsJson)),
-        total: parseFloat(total),
-        status: 'confirmed'
-      })
-    });
-  } catch (error) {
-    console.error('Erro ao enviar confirmação:', error);
-  }
+        // Confirmação de pagamento (ATUALIZADA)
+        document.getElementById('confirm-payment').addEventListener('click', async function() {
+            const proofFile = document.getElementById('payment-proof').files[0];
+            const discordUser = document.getElementById('discord-user').value;
             
-            // Criar novo pedido
+            if (!proofFile) {
+                alert('Por favor, envie o comprovante de pagamento\nSe tiver problemas, entre em contato: https://discord.gg/nAxMvTefZd');
+                return;
+            }
+    
+            // Notificação para o Discord (NOVO)
+            try {
+                await fetch('/.netlify/functions/discord-webhook', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user: discordUser || 'Anônimo',
+                        items: JSON.parse(decodeURIComponent(urlParams.get('items'))),
+                        total: parseFloat(urlParams.get('total')),
+                        status: 'confirmed'
+                    })
+                });
+            } catch (error) {
+                console.error("Erro ao enviar:", error);
+            }
+    
+            // Código original de processamento (mantenha isso)
             const newOrder = {
                 id: Date.now(),
                 date: new Date().toLocaleString(),
-                items: JSON.parse(decodeURIComponent(itemsJson)),
-                total: total,
+                items: JSON.parse(decodeURIComponent(urlParams.get('items'))),
+                total: urlParams.get('total'),
                 status: 'processing',
                 discord: discordUser
             };
             
-            // Adicionar ao histórico
             orders.push(newOrder);
             localStorage.setItem('dayz_orders', JSON.stringify(orders));
             
-            // Mostrar status de processamento
             document.querySelector('.container').classList.add('hidden');
             document.getElementById('payment-status').classList.remove('hidden');
             
-            // Simular processamento do pagamento
             setTimeout(() => {
-                // Atualizar status após "processamento"
                 newOrder.status = 'completed';
                 localStorage.setItem('dayz_orders', JSON.stringify(orders));
                 
-                // Mostrar mensagem de conclusão
                 document.getElementById('payment-status').innerHTML = `
                     <i class="fas fa-check-circle text-4xl text-green-500 mb-4"></i>
                     <h3 class="text-xl font-bold mb-2">PAGAMENTO CONFIRMADO!</h3>
@@ -348,6 +349,7 @@ document.getElementById('confirm-payment').addEventListener('click', async funct
             }, 3000);
         });
         
+        // Restante do código permanece igual...
         // Histórico de pedidos
         function showHistoryModal() {
             document.getElementById('history-modal').classList.remove('hidden');
