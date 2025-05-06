@@ -1,43 +1,36 @@
 const fetch = require('node-fetch');
+const FormData = require('form-data');
 
 exports.handler = async (event) => {
-  // Só aceita requisições POST
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
-  }
+    try {
+        const data = JSON.parse(event.body);
+        const webhookURL = 'https://discord.com/api/webhooks/1366890541396004904/FF9cc4w2EjQUcL1VkPRviHptp7Z37GSADzjiuE4s5aHInQ7YLWRnCOETf6tF6zmA1DZc';
 
-  try {
-    const data = JSON.parse(event.body);
-    const WEBHOOK_URL = 'https://discord.com/api/webhooks/1366890541396004904/FF9cc4w2EjQUcL1VkPRviHptp7Z37GSADzjiuE4s5aHInQ7YLWRnCOETf6tF6zmA1DZc';
+        const form = new FormData();
+        const fileBuffer = Buffer.from(data.proof.data, 'base64');
+        
+        form.append('file', fileBuffer, data.proof.filename);
+        
+        form.append('payload_json', JSON.stringify({
+            content: `📦 Novo pedido de ${data.user}`,
+            embeds: [{
+                title: "Detalhes do Pagamento",
+                color: 0xFF0000,
+                fields: [
+                    { name: "Total", value: `R$ ${data.total.toFixed(2)}`, inline: true },
+                    { name: "Itens", value: data.items.map(i => `${i.quantity}x ${i.name}`).join('\n') }
+                ],
+                timestamp: new Date().toISOString()
+            }]
+        }));
 
-    // Formata a mensagem para o Discord
-    const embed = {
-      title: data.status === 'confirmed' ? '✅ Pagamento Confirmado' : '🛒 Nova Compra',
-      description: `Compra no DayZ Black Market`,
-      color: data.status === 'confirmed' ? 0x2ecc71 : 0xe67e22,
-      fields: [
-        { name: 'Cliente', value: data.user || 'Não identificado' },
-        { name: 'Total', value: `R$ ${data.total.toFixed(2)}` },
-        { 
-          name: 'Itens', 
-          value: data.items.map(i => `• ${i.name} (x${i.quantity})`).join('\n') 
-        }
-      ],
-      timestamp: new Date().toISOString()
-    };
+        await fetch(webhookURL, {
+            method: 'POST',
+            body: form
+        });
 
-    // Envia para o Discord
-    await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        username: 'DayZ Bot',
-        embeds: [embed] 
-      })
-    });
-
-    return { statusCode: 200, body: 'Notificação enviada!' };
-  } catch (error) {
-    return { statusCode: 500, body: 'Erro: ' + error.message };
-  }
+        return { statusCode: 200, body: "OK" };
+    } catch (error) {
+        return { statusCode: 500, body: error.toString() };
+    }
 };

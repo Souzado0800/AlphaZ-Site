@@ -1,6 +1,7 @@
 {
     "name": "dayz-webhook",
     "dependencies": {
-      "node-fetch": "^2.6.7"
+        "form-data": "^4.0.2",
+        "node-fetch": "^2.7.0"
     }
-  }
+}

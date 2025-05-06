@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DayZ Black Market | VIPs, Veículos & Kits</title>
+    <title>ALPHAZ BLACK MARKET | VIPs, Veículos & Kits</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #e67e22;
+            --primary: #e74c3c;
             --secondary: #3498db;
-            --danger: #e74c3c;
+            --danger: #c0392b;
             --success: #2ecc71;
             --dark: #1a1a1a;
         }
@@ -19,7 +19,7 @@
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #0a0a0a;
-            background-image: url('https://images.unsplash.com/photo-1605106702734-205df224ecce?q=80&w=2070&auto=format&fit=crop');
+            background-image: url('https://i.imgur.com/P3LWhSA.jpeg');
             background-size: cover;
             background-attachment: fixed;
             color: white;
@@ -30,28 +30,28 @@
         
         .title-font {
             font-family: 'Orbitron', sans-serif;
-            text-shadow: 0 0 10px rgba(230, 126, 34, 0.7);
+            text-shadow: 0 0 10px rgba(231, 76, 60, 0.7);
         }
         
         .nav-glass {
             background: rgba(10, 10, 10, 0.7);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(230, 126, 34, 0.3);
+            border-bottom: 1px solid rgba(231, 76, 60, 0.3);
         }
         
         .glass-card {
             background: rgba(20, 20, 25, 0.7);
             backdrop-filter: blur(10px);
             border-radius: 10px;
-            border: 1px solid rgba(230, 126, 34, 0.2);
+            border: 1px solid rgba(231, 76, 60, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
         }
         
         .glass-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(230, 126, 34, 0.5);
-            box-shadow: 0 12px 40px rgba(230, 126, 34, 0.2);
+            border-color: rgba(231, 76, 60, 0.5);
+            box-shadow: 0 12px 40px rgba(231, 76, 60, 0.2);
         }
         
         .category-btn {
@@ -97,9 +97,9 @@
         }
         
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(230, 126, 34, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
         }
         
         .item-card {
@@ -137,17 +137,17 @@
     <!-- Navigation -->
     <nav class="nav-glass fixed w-full z-50 py-4 px-6 flex justify-between items-center">
         <div class="flex items-center">
-            <i class="fas fa-skull text-2xl mr-2 text-orange-500"></i>
-            <span class="title-font text-xl">DAYZ BLACK MARKET</span>
+            <i class="fas fa-skull text-2xl mr-2 text-red-500"></i>
+            <span class="title-font text-xl">ALPHAZ BLACK MARKET</span>
         </div>
         <div class="flex items-center space-x-6">
-            <a class="hover:text-orange-400 transition" href="#home">Início</a>
-            <a class="hover:text-orange-400 transition" href="#shop">Loja</a>
-            <a class="relative hover:text-orange-400 transition" href="#cart">
+            <a class="hover:text-red-400 transition" href="#home">Início</a>
+            <a class="hover:text-red-400 transition" href="#shop">Loja</a>
+            <a class="relative hover:text-red-400 transition" href="#cart">
                 <i class="fas fa-shopping-cart text-xl"></i>
-                <span class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" id="cart-count">0</span>
+                <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" id="cart-count">0</span>
             </a>
-            <button class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md transition">Entrar</button>
+            <button class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition">Entrar</button>
         </div>
     </nav>
 
@@ -156,17 +156,17 @@
         <div class="max-w-6xl mx-auto glass-card p-8">
             <div class="flex flex-col md:flex-row items-center">
                 <div class="md:w-1/2 mb-8 md:mb-0">
-                    <h1 class="title-font text-4xl md:text-5xl mb-4">DOMINE<span class="text-orange-500">CHERNARUS</span></h1>
+                    <h1 class="title-font text-4xl md:text-5xl mb-4">DOMINE<span class="text-red-500">CHERNARUS</span></h1>
                     <p class="text-gray-300 mb-6">Obtenha a vantagem definitiva com nossos itens exclusivos de DayZ, veículos e pacotes VIP. Sobreviva mais, lute com mais força e domine as terras devastadas.</p>
                     <div class="flex space-x-4">
-                        <button class="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-md transition font-medium">Compre Agora</button>
-                        <button class="border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-6 py-3 rounded-md transition font-medium">Discord</button>
+                        <button class="bg-red-500 hover:bg-red-600 px-6 py-3 rounded-md transition font-medium">Compre Agora</button>
+                        <button class="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-6 py-3 rounded-md transition font-medium">Discord</button>
                     </div>
                 </div>
                 <div class="md:w-1/2 flex justify-center">
                     <div class="relative">
                         <img alt="DayZ Character" class="w-full max-w-md" src="https://i.imgur.com/JQ8Y0yC.png"/>
-                        <div class="absolute -bottom-6 -right-6 bg-orange-500 text-white px-4 py-2 rounded-md shadow-lg">
+                        <div class="absolute -bottom-6 -right-6 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg">
                             <div class="text-xs">OFERTA ESPECIAL</div>
                             <div class="font-bold">50% DE DESCONTO</div>
                         </div>
@@ -192,7 +192,7 @@
 
     <!-- Shop Section -->
     <section class="py-12 px-6 max-w-6xl mx-auto" id="shop">
-        <h2 class="title-font text-3xl mb-8 text-center">DAYZ BLACK MARKET</h2>
+        <h2 class="title-font text-3xl mb-8 text-center">ALPHAZ BLACK MARKET Black Market</h2>
         <!-- Categories -->
         <div class="flex flex-wrap justify-center gap-3 mb-12">
             <button class="category-btn active px-6 py-2 rounded-full" data-category="all">Todos os Itens</button>
@@ -218,9 +218,9 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="text-gray-400 line-through text-sm mr-2">R$ 50,00</span>
-                        <span class="text-xl font-bold text-orange-500">R$ 40,00</span>
+                        <span class="text-xl font-bold text-red-500">R$ 40,00</span>
                     </div>
-                    <button class="add-to-cart bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md transition text-sm" data-id="1" data-name="VIP Bronze" data-price="40.00">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition text-sm" data-id="1" data-name="VIP Bronze" data-price="40.00">Adicionar ao Carrinho</button>
                 </div>
             </div>
             
@@ -240,9 +240,9 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="text-gray-400 line-through text-sm mr-2">R$ 90,00</span>
-                        <span class="text-xl font-bold text-orange-500">R$ 70,00</span>
+                        <span class="text-xl font-bold text-red-500">R$ 70,00</span>
                     </div>
-                    <button class="add-to-cart bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md transition text-sm" data-id="2" data-name="VIP Silver" data-price="70.00">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition text-sm" data-id="2" data-name="VIP Silver" data-price="70.00">Adicionar ao Carrinho</button>
                 </div>
             </div>
             
@@ -263,9 +263,9 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="text-gray-400 line-through text-sm mr-2">R$ 150,00</span>
-                        <span class="text-xl font-bold text-orange-500">R$ 120,00</span>
+                        <span class="text-xl font-bold text-red-500">R$ 120,00</span>
                     </div>
-                    <button class="add-to-cart bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md transition text-sm" data-id="3" data-name="VIP Gold" data-price="120.00">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition text-sm" data-id="3" data-name="VIP Gold" data-price="120.00">Adicionar ao Carrinho</button>
                 </div>
             </div>
             
@@ -282,9 +282,9 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="text-gray-400 line-through text-sm mr-2">R$ 80,00</span>
-                        <span class="text-xl font-bold text-orange-500">R$ 40,00</span>
+                        <span class="text-xl font-bold text-red-500">R$ 40,00</span>
                     </div>
-                    <button class="add-to-cart bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md transition text-sm" data-id="4" data-name="Offroad Hatchback" data-price="40.00">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition text-sm" data-id="4" data-name="Offroad Hatchback" data-price="40.00">Adicionar ao Carrinho</button>
                 </div>
             </div>
             
@@ -301,9 +301,9 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="text-gray-400 line-through text-sm mr-2">R$ 120,00</span>
-                        <span class="text-xl font-bold text-orange-500">R$ 60,00</span>
+                        <span class="text-xl font-bold text-red-500">R$ 60,00</span>
                     </div>
-                    <button class="add-to-cart bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md transition text-sm" data-id="5" data-name="Military Truck" data-price="60.00">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition text-sm" data-id="5" data-name="Military Truck" data-price="60.00">Adicionar ao Carrinho</button>
                 </div>
             </div>
             
@@ -320,9 +320,9 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="text-gray-400 line-through text-sm mr-2">R$ 200,00</span>
-                        <span class="text-xl font-bold text-orange-500">R$ 100,00</span>
+                        <span class="text-xl font-bold text-red-500">R$ 100,00</span>
                     </div>
-                    <button class="add-to-cart bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md transition text-sm" data-id="6" data-name="Little Bird Helicopter" data-price="100.00">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition text-sm" data-id="6" data-name="Little Bird Helicopter" data-price="100.00">Adicionar ao Carrinho</button>
                 </div>
             </div>
             
@@ -339,9 +339,9 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="text-gray-400 line-through text-sm mr-2">R$ 100,00</span>
-                        <span class="text-xl font-bold text-orange-500">R$ 50,00</span>
+                        <span class="text-xl font-bold text-red-500">R$ 50,00</span>
                     </div>
-                    <button class="add-to-cart bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md transition text-sm" data-id="7" data-name="Assault Boat" data-price="50.00">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition text-sm" data-id="7" data-name="Assault Boat" data-price="50.00">Adicionar ao Carrinho</button>
                 </div>
             </div>
             
@@ -362,9 +362,9 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="text-gray-400 line-through text-sm mr-2">R$ 60,00</span>
-                        <span class="text-xl font-bold text-orange-500">R$ 45,00</span>
+                        <span class="text-xl font-bold text-red-500">R$ 45,00</span>
                     </div>
-                    <button class="add-to-cart bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md transition text-sm" data-id="8" data-name="Survivor Starter Kit" data-price="45.00">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition text-sm" data-id="8" data-name="Survivor Starter Kit" data-price="45.00">Adicionar ao Carrinho</button>
                 </div>
             </div>
             
@@ -385,9 +385,9 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="text-gray-400 line-through text-sm mr-2">R$ 80,00</span>
-                        <span class="text-xl font-bold text-orange-500">R$ 60,00</span>
+                        <span class="text-xl font-bold text-red-500">R$ 60,00</span>
                     </div>
-                    <button class="add-to-cart bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-md transition text-sm" data-id="9" data-name="Base Builder Kit" data-price="60.00">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md transition text-sm" data-id="9" data-name="Base Builder Kit" data-price="60.00">Adicionar ao Carrinho</button>
                 </div>
             </div>
         </div>
@@ -420,7 +420,7 @@
                         <span id="cart-total">R$ 0,00</span>
                     </div>
                 </div>
-                <button class="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-md transition font-medium" id="checkout-btn">Finalizar Compra</button>
+                <button class="w-full bg-red-500 hover:bg-red-600 py-3 rounded-md transition font-medium" id="checkout-btn">Finalizar Compra</button>
             </div>
         </div>
     </div>
@@ -430,16 +430,16 @@
         <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="title-font text-xl mb-4">DAYZ BLACK MARKET</h3>
+                    <h3 class="title-font text-xl mb-4">ALPHAZ BLACK MARKET BLACK MARKET</h3>
                     <p class="text-gray-400 text-sm">A fonte definitiva para itens, veículos e pacotes VIP do DayZ. Sobreviva e domine Chernarus com nossos serviços premium.</p>
                 </div>
                 <div>
                     <h3 class="font-bold mb-4">Links Rápidos</h3>
                     <ul class="space-y-2">
-                        <li><a class="text-gray-400 hover:text-orange-400 transition text-sm" href="#home">Início</a></li>
-                        <li><a class="text-gray-400 hover:text-orange-400 transition text-sm" href="#shop">Loja</a></li>
-                        <li><a class="text-gray-400 hover:text-orange-400 transition text-sm" href="#">Termos de Serviço</a></li>
-                        <li><a class="text-gray-400 hover:text-orange-400 transition text-sm" href="#">Política de Privacidade</a></li>
+                        <li><a class="text-gray-400 hover:text-red-400 transition text-sm" href="#home">Início</a></li>
+                        <li><a class="text-gray-400 hover:text-red-400 transition text-sm" href="#shop">Loja</a></li>
+                        <li><a class="text-gray-400 hover:text-red-400 transition text-sm" href="#">Termos de Serviço</a></li>
+                        <li><a class="text-gray-400 hover:text-red-400 transition text-sm" href="#">Política de Privacidade</a></li>
                     </ul>
                 </div>
                 <div>
@@ -455,7 +455,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm">
-                © 2023 DayZ Black Market. Não afiliado à Bohemia Interactive.
+                © 2023 ALPHAZ BLACK MARKET BLACK MARKET. Não afiliado à Bohemia Interactive.
             </div>
         </div>
     </footer>
@@ -625,39 +625,39 @@
             });
             
             checkoutBtn.addEventListener('click', async function() {
-    // Cálculo do total (código existente)
-    let subtotal = 0;
-    let discount = 0;
-    
-    cart.forEach(item => {
-        const isVehicle = ['4','5','6','7'].includes(item.id);
-        subtotal += item.price * item.quantity;
-        if (isVehicle) discount += (item.price * 0.5) * item.quantity;
-    });
-    
-    const total = subtotal - discount;
+                // Cálculo do total (código existente)
+                let subtotal = 0;
+                let discount = 0;
+                
+                cart.forEach(item => {
+                    const isVehicle = ['4','5','6','7'].includes(item.id);
+                    subtotal += item.price * item.quantity;
+                    if (isVehicle) discount += (item.price * 0.5) * item.quantity;
+                });
+                
+                const total = subtotal - discount;
 
-    // Notificação para o Discord (NOVO)
-    try {
-        await fetch('/.netlify/functions/discord-webhook', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                user: "Compra via Site",
-                items: cart,
-                total: total,
-                status: 'pending'
-            })
-        });
-    } catch (error) {
-        console.error("Erro ao enviar para o Discord:", error);
-        // Não impede o fluxo mesmo se falhar
-    }
+                // Notificação para o Discord (NOVO)
+                try {
+                    await fetch('/.netlify/functions/discord-webhook', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            user: "Compra via Site",
+                            items: cart,
+                            total: total,
+                            status: 'pending'
+                        })
+                    });
+                } catch (error) {
+                    console.error("Erro ao enviar para o Discord:", error);
+                    // Não impede o fluxo mesmo se falhar
+                }
 
-    // Redirecionamento original (mantido)
-    const pixUrl = `pagamento.html?total=${total.toFixed(2)}&items=${encodeURIComponent(JSON.stringify(cart))}`;
-    window.location.href = pixUrl;
-});
+                // Redirecionamento original (mantido)
+                const pixUrl = `pagamento.html?total=${total.toFixed(2)}&items=${encodeURIComponent(JSON.stringify(cart))}`;
+                window.location.href = pixUrl;
+            });
             
             // Countdown timer
             function updateCountdown() {
